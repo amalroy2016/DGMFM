@@ -130,9 +130,12 @@ with tf.device(dev):
                                         tf.less(tf.abs(points_stack[:,0] + 3), 2)))
     masked_points_stack = tf.boolean_mask(points_stack, mask, axis=0)
     
-    points_set = tf.data.Dataset.from_tensor_slices(masked_points_stack).shuffle(100).batch(32, True).make_initializable_iterator()
+    points_set = tf.data.Dataset.from_tensor_slices(masked_points_stack)
+    points_set = points_set.shuffle(100).batch(32, True)
+    points_set = points_set.make_initializable_iterator()
     points_set_initer = points_set.initializer
     points = points_set.get_next()
+    
     # Hyper-Parameters
     xdim = 2 # x, y
     ydim = 3 # u, v, p
@@ -184,7 +187,9 @@ while True:
         print('Processing data...', end='', flush=True)
         
         # Seperate and make contigious
-        [x, y, u, v, p, continuity, x_momentum, y_momentum] = [np.squeeze(np.ascontiguousarray(i)) for i in np.split(data, 8, axis=1)]
+        [x, y, u, v, p, continuity, x_momentum, y_momentum] = \
+            [np.squeeze(np.ascontiguousarray(i)) for i in np.split(data, 8, axis=1)]
+        
         z = np.squeeze(np.ascontiguousarray(z))
         steps = state_file[state_file.find('l-')+2:]
         
