@@ -1,3 +1,3 @@
 # DGMFM
 
-A toy project for learning about physics infromed deep learning model used for fluid simulations
+A toy model to learn about physics infromed deep learning used for fluid simulations
