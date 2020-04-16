@@ -1,8 +1,9 @@
+import numpy as np
+import time, os, sys
 import tensorflow as tf
 from pyevtk.hl import pointsToVTK as p_vtk
 import Models.DGM_Stenosed_Artery_Model as current_model
-import numpy as np
-import time, os, sys
+
 tf.logging.set_verbosity(tf.logging.ERROR)
 os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
 
